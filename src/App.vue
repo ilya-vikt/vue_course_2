@@ -2,12 +2,7 @@
   <div class="container column">
     <form class="card card-w30">
       <cv-select :options="blockTypes" v-model="selectedBlockType" label="Тип блока"></cv-select>
-
-      <div class="form-control">
-        <label for="value">Значение</label>
-        <textarea id="value" rows="3"></textarea>
-      </div>
-
+      <cv-text-area :v-model="blockText" label="Значение"></cv-text-area>
       <button class="btn primary">Добавить</button>
     </form>
 
@@ -51,9 +46,10 @@
 <script>
 import CvLoader from './components/CvLoader.vue';
 import CvSelect from './components/CvSelect.vue';
+import CvTextArea from './components/CvTextArea.vue';
 
 export default {
-  components: { CvLoader, CvSelect },
+  components: { CvLoader, CvSelect, CvTextArea },
   data() {
     return {
       isLoading: false,
