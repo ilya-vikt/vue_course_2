@@ -8,9 +8,14 @@
 
     <div class="card card-w70">
       <h1>Резюме Nickname</h1>
-      <div class="avatar">
-        <img src="https://cdn.dribbble.com/users/5592443/screenshots/14279501/drbl_pop_r_m_rick_4x.png" />
-      </div>
+
+      <component
+        v-for="(block, idx) in blocks"
+        :is="getComponentName(block.type)"
+        :data="block.data"
+        :key="idx"
+      ></component>
+
       <h2>Опыт работы</h2>
       <p>
         главный герой американского мультсериала «Рик и Морти», гениальный учёный, изобретатель, атеист (хотя в
@@ -48,13 +53,24 @@ import CvLoader from './components/CvLoader.vue';
 import CvSelect from './components/CvSelect.vue';
 import CvTextArea from './components/CvTextArea.vue';
 import CvBtn from './components/CvBtn.vue';
+import CvAvatar from './components/CvAvatar.vue';
 
 export default {
-  components: { CvLoader, CvSelect, CvTextArea, CvBtn },
+  components: { CvLoader, CvSelect, CvTextArea, CvBtn, CvAvatar },
   data() {
     return {
       isLoading: false,
       selectedBlockType: 'text',
+      blocks: [
+        {
+          type: 'avatar',
+          data: 'https://cdn.dribbble.com/users/5592443/screenshots/14279501/drbl_pop_r_m_rick_4x.png',
+        },
+        {
+          type: 'avatar',
+          data: 'https://cdn.dribbble.com/users/5592443/screenshots/14279501/drbl_pop_r_m_rick_4x.png',
+        },
+      ],
       blockTypes: [
         {
           name: 'Заголовок',
@@ -75,18 +91,17 @@ export default {
       ],
     };
   },
+  methods: {
+    getComponentName(componentType) {
+      const map = {
+        title: 'CvTitle',
+        subtitle: 'CvSubtitle',
+        avatar: 'CvAvatar',
+        text: 'CvText',
+      };
+
+      return map[componentType];
+    },
+  },
 };
 </script>
-
-<style>
-.avatar {
-  display: flex;
-  justify-content: center;
-}
-
-.avatar img {
-  width: 150px;
-  height: auto;
-  border-radius: 50%;
-}
-</style>
