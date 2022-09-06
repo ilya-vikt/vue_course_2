@@ -2,8 +2,8 @@
   <div class="container column">
     <form class="card card-w30">
       <cv-select :options="blockTypes" v-model="selectedBlockType" label="Тип блока"></cv-select>
-      <cv-text-area :v-model="blockText" label="Значение"></cv-text-area>
-      <cv-btn>Добавить</cv-btn>
+      <cv-text-area v-model="blockData" label="Значение"></cv-text-area>
+      <cv-btn @click.prevent="addBlock">Добавить</cv-btn>
     </form>
 
     <div class="card card-w70">
@@ -14,7 +14,7 @@
         :key="idx"
       ></component>
 
-      <h3>Добавьте первый блок, чтобы увидеть результат</h3>
+      <h3 v-if="blocks.length === 0">Добавьте первый блок, чтобы увидеть результат</h3>
     </div>
   </div>
   <div class="container">
@@ -52,6 +52,7 @@ export default {
     return {
       isLoading: false,
       selectedBlockType: 'text',
+      blockData: '',
       blocks: [
         {
           type: 'title',
@@ -98,8 +99,15 @@ export default {
         avatar: 'CvAvatar',
         text: 'CvText',
       };
-
       return map[componentType];
+    },
+    addBlock() {
+      const newBlock = {
+        type: this.selectedBlockType,
+        data: this.blockData,
+      };
+
+      this.blocks.push(newBlock);
     },
   },
 };
