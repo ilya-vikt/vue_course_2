@@ -3,7 +3,7 @@
     <form class="card card-w30">
       <cv-select :options="blockTypes" v-model="selectedBlockType" label="Тип блока"></cv-select>
       <cv-text-area :v-model="blockText" label="Значение"></cv-text-area>
-      <button class="btn primary">Добавить</button>
+      <cv-btn>Добавить</cv-btn>
     </form>
 
     <div class="card card-w70">
@@ -26,7 +26,7 @@
   </div>
   <div class="container">
     <p>
-      <button class="btn primary">Загрузить комментарии</button>
+      <cv-btn>Загрузить комментарии</cv-btn>
     </p>
     <div class="card">
       <h2>Комментарии</h2>
@@ -47,9 +47,10 @@
 import CvLoader from './components/CvLoader.vue';
 import CvSelect from './components/CvSelect.vue';
 import CvTextArea from './components/CvTextArea.vue';
+import CvBtn from './components/CvBtn.vue';
 
 export default {
-  components: { CvLoader, CvSelect, CvTextArea },
+  components: { CvLoader, CvSelect, CvTextArea, CvBtn },
   data() {
     return {
       isLoading: false,
