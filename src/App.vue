@@ -7,8 +7,6 @@
     </form>
 
     <div class="card card-w70">
-      <h1>Резюме Nickname</h1>
-
       <component
         v-for="(block, idx) in blocks"
         :is="getComponentName(block.type)"
@@ -54,17 +52,18 @@ import CvSelect from './components/CvSelect.vue';
 import CvTextArea from './components/CvTextArea.vue';
 import CvBtn from './components/CvBtn.vue';
 import CvAvatar from './components/CvAvatar.vue';
+import CvTitle from './components/CvTitle.vue';
 
 export default {
-  components: { CvLoader, CvSelect, CvTextArea, CvBtn, CvAvatar },
+  components: { CvLoader, CvSelect, CvTextArea, CvBtn, CvAvatar, CvTitle },
   data() {
     return {
       isLoading: false,
       selectedBlockType: 'text',
       blocks: [
         {
-          type: 'avatar',
-          data: 'https://cdn.dribbble.com/users/5592443/screenshots/14279501/drbl_pop_r_m_rick_4x.png',
+          type: 'title',
+          data: 'Рик Nickname',
         },
         {
           type: 'avatar',
