@@ -14,7 +14,6 @@
         :key="idx"
       ></component>
 
-      <h2>Опыт работы</h2>
       <p>
         главный герой американского мультсериала «Рик и Морти», гениальный учёный, изобретатель, атеист (хотя в
         некоторых сериях он даже молится Богу, однако, каждый раз после чудесного спасения ссылается на удачу и вновь
@@ -53,9 +52,10 @@ import CvTextArea from './components/CvTextArea.vue';
 import CvBtn from './components/CvBtn.vue';
 import CvAvatar from './components/CvAvatar.vue';
 import CvTitle from './components/CvTitle.vue';
+import CvSubtitle from './components/CvSubtitle.vue';
 
 export default {
-  components: { CvLoader, CvSelect, CvTextArea, CvBtn, CvAvatar, CvTitle },
+  components: { CvLoader, CvSelect, CvTextArea, CvBtn, CvAvatar, CvTitle, CvSubtitle },
   data() {
     return {
       isLoading: false,
@@ -68,6 +68,10 @@ export default {
         {
           type: 'avatar',
           data: 'https://cdn.dribbble.com/users/5592443/screenshots/14279501/drbl_pop_r_m_rick_4x.png',
+        },
+        {
+          type: 'subtitle',
+          data: 'Опыт работы',
         },
       ],
       blockTypes: [
