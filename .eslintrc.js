@@ -20,7 +20,7 @@ module.exports = {
     'no-mixed-operators': 'off', // Несовместимо с prettier
     'function-paren-newline': 'off', // Несовместимо с prettier
     'space-before-function-paren': 0, // Несовместимо с prettier
-    'max-len': ['error', 120, 2, { ignoreUrls: true }], // airbnb позволяет некоторые пограничные случаи
+    'max-len': ['warn', 120, 2, { ignoreUrls: true }], // airbnb позволяет некоторые пограничные случаи
     'prettier/prettier': ['error'],
   },
 };
