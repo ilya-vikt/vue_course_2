@@ -1,15 +1,7 @@
 <template>
   <div class="container column">
     <form class="card card-w30">
-      <div class="form-control">
-        <label for="type">Тип блока</label>
-        <select id="type">
-          <option value="title">Заголовок</option>
-          <option value="subtitle">Подзаголовокs</option>
-          <option value="avatar">Аватар</option>
-          <option value="text">Текст</option>
-        </select>
-      </div>
+      <cv-select :options="blockTypes" v-model="selectedBlockType" label="Тип блока"></cv-select>
 
       <div class="form-control">
         <label for="value">Значение</label>
@@ -52,12 +44,41 @@
         </li>
       </ul>
     </div>
-    <div class="loader"></div>
+    <cv-loader v-if="isLoading"></cv-loader>
   </div>
 </template>
 
 <script>
-export default {};
+import CvLoader from './components/CvLoader.vue';
+import CvSelect from './components/CvSelect.vue';
+
+export default {
+  components: { CvLoader, CvSelect },
+  data() {
+    return {
+      isLoading: false,
+      selectedBlockType: 'text',
+      blockTypes: [
+        {
+          name: 'Заголовок',
+          value: 'title',
+        },
+        {
+          name: 'Подзаголовок',
+          value: 'subtitle',
+        },
+        {
+          name: 'Аватар',
+          value: 'avatar',
+        },
+        {
+          name: 'Текст',
+          value: 'text',
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style>
