@@ -1,17 +1,9 @@
 <template>
   <div class="container column">
     <cv-block-creator @addblock="addBlock"></cv-block-creator>
-    <div class="card card-w70">
-      <component
-        v-for="(block, idx) in blocks"
-        :is="getComponentName(block.type)"
-        :data="block.data"
-        :key="idx"
-      ></component>
-
-      <h3 v-if="blocks.length === 0">Добавьте первый блок, чтобы увидеть результат</h3>
-    </div>
+    <cv-block-list :blocks="blocks"></cv-block-list>
   </div>
+
   <div class="container">
     <p>
       <cv-btn>Загрузить комментарии</cv-btn>
@@ -33,15 +25,12 @@
 
 <script>
 import CvBlockCreator from './components/CvBlockCreator.vue';
+import CvBlockList from './components/CvBlockList.vue';
 import CvLoader from './components/CvLoader.vue';
 import CvBtn from './components/CvBtn.vue';
-import CvAvatar from './components/CvAvatar.vue';
-import CvTitle from './components/CvTitle.vue';
-import CvSubtitle from './components/CvSubtitle.vue';
-import CvText from './components/CvText.vue';
 
 export default {
-  components: { CvBlockCreator, CvLoader, CvBtn, CvAvatar, CvTitle, CvSubtitle, CvText },
+  components: { CvBlockCreator, CvBlockList, CvLoader, CvBtn },
   data() {
     return {
       isLoading: false,
@@ -88,9 +77,6 @@ export default {
     };
   },
   methods: {
-    getComponentName(name) {
-      return this.blockTypes.find((item) => item.type === name).componentName;
-    },
     addBlock(type, data) {
       this.blocks.push({ type, data });
     },
