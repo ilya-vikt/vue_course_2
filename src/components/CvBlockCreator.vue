@@ -2,7 +2,7 @@
   <form class="card card-w30">
     <cv-select v-model="selectedBlockType" label="Тип блока"></cv-select>
     <cv-text-area v-model="blockData" label="Значение"></cv-text-area>
-    <cv-btn @click.prevent="addBlock">Добавить</cv-btn>
+    <cv-btn @click.prevent="addBlock" :disabled="isAddBtnDisabled">Добавить</cv-btn>
   </form>
 </template>
 
@@ -27,6 +27,11 @@ export default {
   methods: {
     addBlock() {
       this.$emit('addblock', this.selectedBlockType, this.blockData);
+    },
+  },
+  computed: {
+    isAddBtnDisabled() {
+      return this.blockData.length < 4;
     },
   },
 };

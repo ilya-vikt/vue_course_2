@@ -1,7 +1,7 @@
 <template>
   <div class="form-control">
     <label :for="id">{{ label }}</label>
-    <textarea :id="id" :value="modelValue" @change="change" rows="3"></textarea>
+    <textarea :id="id" :value="modelValue" @input="change" rows="3" />
   </div>
 </template>
 <script>
