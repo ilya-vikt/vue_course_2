@@ -3,7 +3,7 @@
     <h2>Комментарии</h2>
     <ul class="list">
       <li class="list-item" v-for="(comment, idx) in comments" :key="idx">
-        <cv-comment :author="comment.author" :text="comment.text"></cv-comment>
+        <cv-comment :author="comment.email" :text="comment.text"></cv-comment>
       </li>
     </ul>
   </div>

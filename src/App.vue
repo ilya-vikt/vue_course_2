@@ -6,7 +6,7 @@
 
   <div class="container">
     <p>
-      <cv-btn>Загрузить комментарии</cv-btn>
+      <cv-btn @click="getComments">Загрузить комментарии</cv-btn>
     </p>
     <cv-comment-list :comments="comments"></cv-comment-list>
     <cv-loader v-if="isLoading"></cv-loader>
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import CvBlockCreator from './components/CvBlockCreator.vue';
 import CvBlockList from './components/CvBlockList.vue';
 import CvLoader from './components/CvLoader.vue';
@@ -65,16 +66,24 @@ export default {
           data: 'главный герой американского мультсериала «Рик и Морти», гениальный учёный, изобретатель, атеист (хотя в некоторых сериях он даже молится Богу, однако, каждый раз после чудесного спасения ссылается на удачу и вновь',
         },
       ],
-      comments: [
-        { author: 'author1', text: 'text1' },
-        { author: 'author2', text: 'text2' },
-        { author: 'author3', text: 'text3' },
-      ],
+      comments: [],
     };
   },
   methods: {
     addBlock(type, data) {
       this.blocks.push({ type, data });
+    },
+    async getComments() {
+      try {
+        this.isLoading = true;
+        this.comments = [];
+        const { data } = await axios.get('https://jsonplaceholder.typicode.com/comments?_limit=42');
+        this.comments = data.map((comment) => ({ email: comment.email, text: comment.body }));
+      } catch {
+        console.warn('The comments loading failed');
+      } finally {
+        this.isLoading = false;
+      }
     },
   },
   provide() {
