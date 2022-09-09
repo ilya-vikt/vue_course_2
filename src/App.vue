@@ -8,7 +8,7 @@
     <p>
       <cv-btn>Загрузить комментарии</cv-btn>
     </p>
-    <cv-comment-list></cv-comment-list>
+    <cv-comment-list :comments="comments"></cv-comment-list>
     <cv-loader v-if="isLoading"></cv-loader>
   </div>
 </template>
@@ -64,6 +64,11 @@ export default {
           type: 'text',
           data: 'главный герой американского мультсериала «Рик и Морти», гениальный учёный, изобретатель, атеист (хотя в некоторых сериях он даже молится Богу, однако, каждый раз после чудесного спасения ссылается на удачу и вновь',
         },
+      ],
+      comments: [
+        { author: 'author1', text: 'text1' },
+        { author: 'author2', text: 'text2' },
+        { author: 'author3', text: 'text3' },
       ],
     };
   },
