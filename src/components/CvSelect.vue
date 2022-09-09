@@ -2,7 +2,7 @@
   <div class="form-control">
     <label :for="id">{{ label }}</label>
     <select :id="id" :value="modelValue" @change="change">
-      <option :value="option.value" v-for="option in options" :key="option.value">{{ option.name }}</option>
+      <option :value="option.type" v-for="option in blockTypes" :key="option.type">{{ option.caption }}</option>
     </select>
   </div>
 </template>
@@ -11,7 +11,6 @@
 export default {
   props: {
     label: String,
-    options: Array,
     modelValue: String,
   },
   data() {
@@ -24,5 +23,6 @@ export default {
       this.$emit('update:modelValue', event.target.value);
     },
   },
+  inject: ['blockTypes'],
 };
 </script>

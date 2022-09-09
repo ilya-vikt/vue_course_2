@@ -1,11 +1,6 @@
 <template>
   <div class="container column">
-    <form class="card card-w30">
-      <cv-select :options="blockTypes" v-model="selectedBlockType" label="Тип блока"></cv-select>
-      <cv-text-area v-model="blockData" label="Значение"></cv-text-area>
-      <cv-btn @click.prevent="addBlock">Добавить</cv-btn>
-    </form>
-
+    <cv-block-creator @addblock="addBlock"></cv-block-creator>
     <div class="card card-w70">
       <component
         v-for="(block, idx) in blocks"
@@ -37,9 +32,8 @@
 </template>
 
 <script>
+import CvBlockCreator from './components/CvBlockCreator.vue';
 import CvLoader from './components/CvLoader.vue';
-import CvSelect from './components/CvSelect.vue';
-import CvTextArea from './components/CvTextArea.vue';
 import CvBtn from './components/CvBtn.vue';
 import CvAvatar from './components/CvAvatar.vue';
 import CvTitle from './components/CvTitle.vue';
@@ -47,12 +41,32 @@ import CvSubtitle from './components/CvSubtitle.vue';
 import CvText from './components/CvText.vue';
 
 export default {
-  components: { CvLoader, CvSelect, CvTextArea, CvBtn, CvAvatar, CvTitle, CvSubtitle, CvText },
+  components: { CvBlockCreator, CvLoader, CvBtn, CvAvatar, CvTitle, CvSubtitle, CvText },
   data() {
     return {
       isLoading: false,
-      selectedBlockType: 'text',
-      blockData: '',
+      blockTypes: [
+        {
+          caption: 'Заголовок',
+          type: 'title',
+          componentName: 'CvTitle',
+        },
+        {
+          caption: 'Подзаголовок',
+          type: 'subtitle',
+          componentName: 'CvSubtitle',
+        },
+        {
+          caption: 'Аватар',
+          type: 'avatar',
+          componentName: 'CvAvatar',
+        },
+        {
+          caption: 'Текст',
+          type: 'text',
+          componentName: 'CvText',
+        },
+      ],
       blocks: [
         {
           type: 'title',
@@ -71,44 +85,20 @@ export default {
           data: 'главный герой американского мультсериала «Рик и Морти», гениальный учёный, изобретатель, атеист (хотя в некоторых сериях он даже молится Богу, однако, каждый раз после чудесного спасения ссылается на удачу и вновь',
         },
       ],
-      blockTypes: [
-        {
-          name: 'Заголовок',
-          value: 'title',
-        },
-        {
-          name: 'Подзаголовок',
-          value: 'subtitle',
-        },
-        {
-          name: 'Аватар',
-          value: 'avatar',
-        },
-        {
-          name: 'Текст',
-          value: 'text',
-        },
-      ],
     };
   },
   methods: {
-    getComponentName(componentType) {
-      const map = {
-        title: 'CvTitle',
-        subtitle: 'CvSubtitle',
-        avatar: 'CvAvatar',
-        text: 'CvText',
-      };
-      return map[componentType];
+    getComponentName(name) {
+      return this.blockTypes.find((item) => item.type === name).componentName;
     },
-    addBlock() {
-      const newBlock = {
-        type: this.selectedBlockType,
-        data: this.blockData,
-      };
-
-      this.blocks.push(newBlock);
+    addBlock(type, data) {
+      this.blocks.push({ type, data });
     },
+  },
+  provide() {
+    return {
+      blockTypes: this.blockTypes,
+    };
   },
 };
 </script>
