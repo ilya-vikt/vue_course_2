@@ -8,17 +8,7 @@
     <p>
       <cv-btn>Загрузить комментарии</cv-btn>
     </p>
-    <div class="card">
-      <h2>Комментарии</h2>
-      <ul class="list">
-        <li class="list-item">
-          <div>
-            <p><strong>test@microsoft.com</strong></p>
-            <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, reiciendis.</small>
-          </div>
-        </li>
-      </ul>
-    </div>
+    <cv-comment-list></cv-comment-list>
     <cv-loader v-if="isLoading"></cv-loader>
   </div>
 </template>
@@ -28,9 +18,10 @@ import CvBlockCreator from './components/CvBlockCreator.vue';
 import CvBlockList from './components/CvBlockList.vue';
 import CvLoader from './components/CvLoader.vue';
 import CvBtn from './components/CvBtn.vue';
+import CvCommentList from './components/CvCommentList.vue';
 
 export default {
-  components: { CvBlockCreator, CvBlockList, CvLoader, CvBtn },
+  components: { CvBlockCreator, CvBlockList, CvLoader, CvBtn, CvCommentList },
   data() {
     return {
       isLoading: false,
