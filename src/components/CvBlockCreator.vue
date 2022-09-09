@@ -27,6 +27,8 @@ export default {
   methods: {
     addBlock() {
       this.$emit('addblock', this.selectedBlockType, this.blockData);
+      this.selectedBlockType = 'title';
+      this.blockData = '';
     },
   },
   computed: {
