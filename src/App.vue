@@ -5,7 +5,7 @@
   </div>
 
   <div class="container">
-    <p>
+    <p v-if="commentsBtnShow">
       <cv-btn @click="getComments">Загрузить комментарии</cv-btn>
     </p>
     <cv-comment-list :comments="comments"></cv-comment-list>
@@ -53,6 +53,12 @@ export default {
       blocks: [],
       comments: [],
     };
+  },
+
+  computed: {
+    commentsBtnShow() {
+      return this.comments.length === 0;
+    },
   },
 
   methods: {
