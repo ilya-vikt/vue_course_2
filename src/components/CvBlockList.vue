@@ -1,10 +1,10 @@
 <template>
   <div class="card card-w70">
     <component
-      v-for="(block, idx) in blocks"
+      v-for="block in blocks"
       :is="getComponentName(block.type)"
       :data="block.data"
-      :key="idx"
+      :key="block.id"
     ></component>
 
     <h3 v-if="blocks.length === 0">Добавьте первый блок, чтобы увидеть результат</h3>

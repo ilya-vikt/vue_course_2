@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      dbUrl: 'https://vue-cv-f51c8-default-rtdb.firebaseio.com/cv.json',
       blockTypes: [
         {
           caption: 'Заголовок',
@@ -48,30 +49,37 @@ export default {
           componentName: 'CvText',
         },
       ],
-      blocks: [
-        {
-          type: 'title',
-          data: 'Рик Nickname',
-        },
-        {
-          type: 'avatar',
-          data: 'https://cdn.dribbble.com/users/5592443/screenshots/14279501/drbl_pop_r_m_rick_4x.png',
-        },
-        {
-          type: 'subtitle',
-          data: 'Опыт работы',
-        },
-        {
-          type: 'text',
-          data: 'главный герой американского мультсериала «Рик и Морти», гениальный учёный, изобретатель, атеист (хотя в некоторых сериях он даже молится Богу, однако, каждый раз после чудесного спасения ссылается на удачу и вновь',
-        },
-      ],
+      blocks: [],
+      //  blocks: [
+      //   {
+      //     type: 'title',
+      //     data: 'Рик Nickname',
+      //   },
+      //   {
+      //     type: 'avatar',
+      //     data: 'https://cdn.dribbble.com/users/5592443/screenshots/14279501/drbl_pop_r_m_rick_4x.png',
+      //   },
+      //   {
+      //     type: 'subtitle',
+      //     data: 'Опыт работы',
+      //   },
+      //   {
+      //     type: 'text',
+      //     data: 'главный герой американского мультсериала «Рик и Морти», гениальный учёный, изобретатель, атеист (хотя в некоторых сериях он даже молится Богу, однако, каждый раз после чудесного спасения ссылается на удачу и вновь',
+      //   },
+      // ],
       comments: [],
     };
   },
   methods: {
-    addBlock(type, data) {
-      this.blocks.push({ type, data });
+    async addBlock(type, data) {
+      const block = { type, data };
+      const success = await this.saveBlock(block);
+      if (success) {
+        this.blocks.push(block);
+      } else {
+        alert('Не удалось сохранить блок в базе данных');
+      }
     },
     async getComments() {
       try {
@@ -85,11 +93,51 @@ export default {
         this.isLoading = false;
       }
     },
+
+    async getState() {
+      try {
+        const param = {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
+        const response = await fetch(this.dbUrl, param);
+        const result = await response.json();
+        if (result) {
+          this.blocks = Object.keys(result).map((key) => ({ id: key, ...result[key] }));
+        }
+      } catch (err) {
+        this.blocks = [];
+        alert(`Не удалось загрузить сохраненное резюме: ${err}`);
+      }
+    },
+    async saveBlock(block) {
+      let success = true;
+      try {
+        const param = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(block),
+        };
+        const response = await fetch(this.dbUrl, param);
+        success = response.status === 200;
+      } catch (err) {
+        success = false;
+      }
+      return success;
+    },
   },
+
   provide() {
     return {
       blockTypes: this.blockTypes,
     };
+  },
+  mounted() {
+    this.getState();
   },
 };
 </script>

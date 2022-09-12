@@ -1,0 +1,1 @@
+GET https://vue-cv-f51c8-default-rtdb.firebaseio.com/cv.json

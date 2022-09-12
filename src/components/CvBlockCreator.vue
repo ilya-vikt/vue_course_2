@@ -12,7 +12,15 @@ import CvTextArea from './CvTextArea.vue';
 import CvBtn from './CvBtn.vue';
 
 export default {
-  emits: ['addblock'],
+  emits: {
+    addblock(blockType, blockData) {
+      const checkPass = blockType && blockData;
+      if (!checkPass) {
+        console.warn("Not enought parameters in a 'addBlock' method");
+      }
+      return checkPass;
+    },
+  },
   data() {
     return {
       selectedBlockType: 'title',
