@@ -23,6 +23,7 @@ import CvCommentList from './components/CvCommentList.vue';
 
 export default {
   components: { CvBlockCreator, CvBlockList, CvLoader, CvBtn, CvCommentList },
+
   data() {
     return {
       isLoading: false,
@@ -50,27 +51,10 @@ export default {
         },
       ],
       blocks: [],
-      //  blocks: [
-      //   {
-      //     type: 'title',
-      //     data: 'Рик Nickname',
-      //   },
-      //   {
-      //     type: 'avatar',
-      //     data: 'https://cdn.dribbble.com/users/5592443/screenshots/14279501/drbl_pop_r_m_rick_4x.png',
-      //   },
-      //   {
-      //     type: 'subtitle',
-      //     data: 'Опыт работы',
-      //   },
-      //   {
-      //     type: 'text',
-      //     data: 'главный герой американского мультсериала «Рик и Морти», гениальный учёный, изобретатель, атеист (хотя в некоторых сериях он даже молится Богу, однако, каждый раз после чудесного спасения ссылается на удачу и вновь',
-      //   },
-      // ],
       comments: [],
     };
   },
+
   methods: {
     async addBlock(type, data) {
       const block = { type, data };
@@ -81,6 +65,7 @@ export default {
         alert('Не удалось сохранить блок в базе данных');
       }
     },
+
     async getComments() {
       try {
         this.isLoading = true;
@@ -112,6 +97,7 @@ export default {
         alert(`Не удалось загрузить сохраненное резюме: ${err}`);
       }
     },
+
     async saveBlock(block) {
       let success = true;
       try {
@@ -136,6 +122,7 @@ export default {
       blockTypes: this.blockTypes,
     };
   },
+
   mounted() {
     this.getState();
   },

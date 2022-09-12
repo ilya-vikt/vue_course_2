@@ -7,8 +7,14 @@
 <script>
 export default {
   props: {
-    label: String,
-    modelValue: String,
+    label: {
+      type: String,
+      required: true,
+    },
+    modelValue: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {

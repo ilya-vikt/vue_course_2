@@ -18,7 +18,12 @@ import CvSubtitle from './CvSubtitle.vue';
 import CvText from './CvText.vue';
 
 export default {
-  props: ['blocks'],
+  props: {
+    blocks: {
+      type: Array,
+      required: true,
+    },
+  },
   components: { CvAvatar, CvTitle, CvSubtitle, CvText },
   methods: {
     getComponentName(name) {

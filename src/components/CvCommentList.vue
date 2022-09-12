@@ -14,7 +14,10 @@ import CvComment from './CvComment.vue';
 
 export default {
   props: {
-    comments: Array,
+    comments: {
+      type: Array,
+      required: true,
+    },
   },
   components: { CvComment },
 };

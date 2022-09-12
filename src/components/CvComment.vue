@@ -10,8 +10,14 @@
 <script>
 export default {
   props: {
-    author: String,
-    text: String,
+    author: {
+      type: String,
+      required: true,
+    },
+    text: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>

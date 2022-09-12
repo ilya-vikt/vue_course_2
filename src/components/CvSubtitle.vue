@@ -4,7 +4,10 @@
 <script>
 export default {
   props: {
-    data: String,
+    data: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>
