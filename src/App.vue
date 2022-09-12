@@ -28,6 +28,7 @@ export default {
     return {
       isLoading: false,
       dbUrl: 'https://vue-cv-f51c8-default-rtdb.firebaseio.com/cv.json',
+      commentsUrl: 'https://jsonplaceholder.typicode.com/comments?_limit=42',
       blockTypes: [
         {
           caption: 'Заголовок',
@@ -76,7 +77,7 @@ export default {
       try {
         this.isLoading = true;
         this.comments = [];
-        const { data } = await axios.get('https://jsonplaceholder.typicode.com/comments?_limit=42');
+        const { data } = await axios.get(this.commentsUrl);
         this.comments = data.map((comment) => ({ email: comment.email, text: comment.body }));
       } catch {
         console.warn('The comments loading failed');
